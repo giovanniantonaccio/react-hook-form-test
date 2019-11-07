@@ -1,0 +1,34 @@
+{
+  "name": "react-hook-form",
+  "version": "1.0.0",
+  "description": "React Hook Form Tests using Yup.",
+  "keywords": [],
+  "main": "src/index.js",
+  "dependencies": {
+    "@emotion/core": "10.0.17",
+    "@emotion/styled": "10.0.17",
+    "@material-ui/core": "4.6.0",
+    "axios": "0.19.0",
+    "formik": "2.0.1-rc.13",
+    "react": "16.8.6",
+    "react-dom": "16.8.6",
+    "react-hook-form": "3.26.5",
+    "react-scripts": "3.0.1",
+    "yup": "0.27.0"
+  },
+  "devDependencies": {
+    "typescript": "3.3.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
