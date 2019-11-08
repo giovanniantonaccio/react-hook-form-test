@@ -1,9 +1,10 @@
-const validate = (value, key, schema) => {
-  console.log(`value: ${value}`);
-  console.log(`key: ${key}`);
-  return schema[key]
+const validate = async (value, key, schema) => {
+  return await schema.yupValidations[key]
     .validate(value)
-    .then(() => {})
+    .then(value => {
+      if (schema.customValidations[key])
+        return schema.customValidations[key](value);
+    })
     .catch(err => {
       return err.message;
     });

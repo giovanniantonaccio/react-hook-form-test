@@ -1,12 +1,10 @@
 import React from "react";
 import useForm from "react-hook-form";
-import TextField from "@material-ui/core/TextField";
-
-import schemaValidate from "../../services/schemaValidate";
 
 import schema from "../../schemas/SignupFormSchema";
 
-// And now we can use these
+import TextInput from "../../components/TextInput";
+
 export default function SignupForm() {
   const { register, errors, handleSubmit, clearError } = useForm({
     mode: "onBlur"
@@ -20,33 +18,21 @@ export default function SignupForm() {
   return (
     <div className="App">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <TextField
-          error={errors.email}
-          helperText={errors.email && errors.email.message}
-          name="email"
-          id="email"
+        <TextInput
+          errors={errors}
+          register={register}
+          clearError={clearError}
+          field="email"
           label="Email"
-          defaultValue=""
-          margin="normal"
-          variant="outlined"
-          onClick={() => clearError("email")}
-          inputRef={register({
-            validate: value => schemaValidate(value, "email", schema)
-          })}
+          schema={schema}
         />
-        <TextField
-          error={errors.name}
-          helperText={errors.name && errors.name.message}
-          name="name"
-          id="name"
+        <TextInput
+          errors={errors}
+          register={register}
+          clearError={clearError}
+          field="name"
           label="Name"
-          defaultValue=""
-          margin="normal"
-          variant="outlined"
-          onClick={() => clearError("email")}
-          inputRef={register({
-            validate: value => schemaValidate(value, "name", schema)
-          })}
+          schema={schema}
         />
         <button type="submit">Submit</button>
       </form>
