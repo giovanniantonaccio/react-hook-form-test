@@ -60,6 +60,15 @@ export default function SignupForm() {
             label="Name"
             schema={schema}
           />
+          <TextInput
+            errors={errors}
+            register={register}
+            clearError={clearError}
+            field="amount"
+            label="Amount"
+            schema={schema}
+            type="number"
+          />
           <SelectInput
             errors={errors}
             register={register}

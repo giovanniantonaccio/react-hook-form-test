@@ -8,6 +8,15 @@ const SignupFormSchema = {
   name: Yup.string()
     .required("Name is required")
     .min(5, "Min length is 5"),
+  amount: Yup.number()
+    .required("Amount is required")
+    .integer("Amount must be integer")
+    .min(0, "Minimum value is 0")
+    .max(10, "Maximum value is 10")
+    .nullable()
+    .transform((value, originalValue) =>
+      originalValue.trim() === "" ? null : value
+    ),
   currency: Yup.string().min(1, "Currency is required"),
   toggle: Yup.boolean("Invalid value")
 };
