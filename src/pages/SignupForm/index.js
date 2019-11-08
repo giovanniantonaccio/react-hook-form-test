@@ -3,10 +3,12 @@ import useForm from "react-hook-form";
 
 import schema from "../../schemas/SignupFormSchema";
 
-import TextInput from "../../components/TextInput";
-import SelectInput from "../../components/SelectInput";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
+
+import TextInput from "../../components/TextInput";
+import SelectInput from "../../components/SelectInput";
+import SwitchInput from "../../components/SwitchInput";
 
 const currencies = [
   {
@@ -64,6 +66,14 @@ export default function SignupForm() {
             clearError={clearError}
             field="currency"
             label="Currency"
+            schema={schema}
+            options={currencies}
+          />
+          <SwitchInput
+            errors={errors}
+            register={register}
+            field="toggle"
+            label="Toggle"
             schema={schema}
             options={currencies}
           />

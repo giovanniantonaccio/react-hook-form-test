@@ -8,7 +8,8 @@ const SignupFormSchema = {
   name: Yup.string()
     .required("Name is required")
     .min(5, "Min length is 5"),
-  currency: Yup.string().min(1, "Currency is required")
+  currency: Yup.string().min(1, "Currency is required"),
+  toggle: Yup.boolean("Invalid value")
 };
 
 async function NameValidation(value) {
