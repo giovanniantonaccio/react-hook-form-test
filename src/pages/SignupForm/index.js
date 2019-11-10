@@ -1,41 +1,41 @@
-import React from "react";
-import useForm from "react-hook-form";
+import React from 'react';
+import useForm from 'react-hook-form';
 
-import schema from "../../schemas/SignupFormSchema";
+import schema from '../../schemas/SignupFormSchema';
 
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 
-import TextInput from "../../components/TextInput";
-import SelectInput from "../../components/SelectInput";
-import SwitchInput from "../../components/SwitchInput";
+import TextInput from '../../components/TextInput';
+import SelectInput from '../../components/SelectInput';
+import SwitchInput from '../../components/SwitchInput';
+import DatePicker from '../../components/DatePicker';
 
 const currencies = [
   {
-    value: "USD",
-    label: "$"
+    value: 'USD',
+    label: '$',
   },
   {
-    value: "EUR",
-    label: "€"
+    value: 'EUR',
+    label: '€',
   },
   {
-    value: "BTC",
-    label: "฿"
+    value: 'BTC',
+    label: '฿',
   },
   {
-    value: "JPY",
-    label: "¥"
-  }
+    value: 'JPY',
+    label: '¥',
+  },
 ];
 
 export default function SignupForm() {
   const { register, errors, handleSubmit, clearError } = useForm({
-    mode: "onBlur"
+    mode: 'onBlur',
   });
 
   const onSubmit = (data, e) => {
-    console.log("aqui");
     e.preventDefault();
     console.log(data);
   };
@@ -81,15 +81,23 @@ export default function SignupForm() {
           <SwitchInput
             errors={errors}
             register={register}
+            clearError={clearError}
             field="toggle"
             label="Toggle"
             schema={schema}
-            options={currencies}
+          />
+          <DatePicker
+            errors={errors}
+            register={register}
+            clearError={clearError}
+            field="calendar"
+            label="Calendar"
+            schema={schema}
           />
           <Button
             variant="contained"
             type="submit"
-            style={{ marginTop: "20px" }}
+            style={{ marginTop: '20px' }}
           >
             Submit
           </Button>

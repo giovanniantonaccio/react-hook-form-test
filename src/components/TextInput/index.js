@@ -1,6 +1,6 @@
-import React from "react";
-import TextField from "@material-ui/core/TextField";
-import schemaValidate from "../../services/schemaValidate";
+import React from 'react';
+import TextField from '@material-ui/core/TextField';
+import schemaValidate from '../../services/schemaValidate';
 
 export default function TextInput({
   errors,
@@ -23,7 +23,7 @@ export default function TextInput({
       variant="outlined"
       onClick={() => clearError(field)}
       inputRef={register({
-        validate: value => schemaValidate(value, field, schema)
+        validate: value => schemaValidate(value, field, schema),
       })}
       {...rest}
     />

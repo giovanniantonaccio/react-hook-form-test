@@ -22,7 +22,11 @@ export default function TextInput({
   }, []);
 
   return (
-    <FormControl variant="outlined" error={errors[field] && true}>
+    <FormControl
+      variant="outlined"
+      margin="normal"
+      error={errors[field] && true}
+    >
       <InputLabel ref={inputLabel} id={field}>
         {label}
       </InputLabel>
