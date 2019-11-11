@@ -20,12 +20,18 @@ const SignupFormSchema = {
     ),
   currency: Yup.string().min(1, "Currency is required"),
   toggle: Yup.boolean("Invalid value"),
-  calendar: Yup.string().required("Date is required")
+  toggleEdit: Yup.boolean("Invalid value"),
+  calendar: Yup.string().required("Date is required"),
+  monthCalendar: Yup.string().required("Date is required")
 };
 
-async function NameValidation(value, params = null) {
-  const result = await api.get("https://swapi.co/api/people/1/?format=json");
-  if (value !== result.data.name) return "Nome inválido";
+async function NameValidation(value) {
+  try {
+    const result = await api.get("https://swapi.co/api/people/1/?format=json");
+    if (value !== result.data.name) return "Invalid name";
+  } catch (err) {
+    return "Could not validate name. Network error";
+  }
 }
 
 async function DateValidation(value, params) {
@@ -42,10 +48,23 @@ async function DateValidation(value, params) {
     });
 }
 
+async function MonthCalendarValidation(value, params) {
+  const { format } = params;
+  const parsedDate = parse(value, format, new Date());
+  return await Yup.date()
+    .typeError("Invalid date")
+    .validate(parsedDate)
+    .then(value => {})
+    .catch(err => {
+      return err.message;
+    });
+}
+
 export default {
   yupValidations: SignupFormSchema,
   customValidations: {
     name: NameValidation,
-    calendar: DateValidation
+    calendar: DateValidation,
+    monthCalendar: MonthCalendarValidation
   }
 };

@@ -1,11 +1,20 @@
-import React from 'react';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import schemaValidate from '../../services/schemaValidate';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import schemaValidate from "../../services/schemaValidate";
 
-export default function TextInput({ props, field, label, options, ...rest }) {
+export default function SelectInput({
+  props,
+  field,
+  label,
+  options,
+  defaultValue,
+  params,
+  ...rest
+}) {
   const { register, errors, clearError, schema } = props;
 
   const inputLabel = React.useRef(null);
@@ -29,9 +38,11 @@ export default function TextInput({ props, field, label, options, ...rest }) {
         id={field}
         label={label}
         labelWidth={labelWidth}
-        onClick={() => clearError(field)}
+        defaultValue={defaultValue}
+        onBlur={() => clearError(field)}
+        // onChange={newValue => setValue(newValue)}
         inputRef={register({
-          validate: value => schemaValidate(value, field, schema),
+          validate: value => schemaValidate(value, field, schema, params)
         })}
         {...rest}
       >
@@ -49,3 +60,27 @@ export default function TextInput({ props, field, label, options, ...rest }) {
     </FormControl>
   );
 }
+
+SelectInput.propTypes = {
+  props: PropTypes.shape({
+    register: PropTypes.func.isRequired,
+    errors: PropTypes.object.isRequired,
+    clearError: PropTypes.func.isRequired,
+    schema: PropTypes.object.isRequired
+  }),
+  field: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired
+    })
+  ),
+  defaultValue: PropTypes.string,
+  params: PropTypes.object
+};
+
+SelectInput.defaultProps = {
+  defaultValue: "",
+  params: null
+};
