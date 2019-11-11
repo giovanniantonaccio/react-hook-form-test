@@ -1,20 +1,13 @@
-import React from "react";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import Select from "@material-ui/core/Select";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import schemaValidate from "../../services/schemaValidate";
+import React from 'react';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import schemaValidate from '../../services/schemaValidate';
 
-export default function TextInput({
-  errors,
-  register,
-  clearError,
-  field,
-  label,
-  schema,
-  options,
-  ...rest
-}) {
+export default function TextInput({ props, field, label, options, ...rest }) {
+  const { register, errors, clearError, schema } = props;
+
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = React.useState(0);
   React.useEffect(() => {
@@ -38,7 +31,7 @@ export default function TextInput({
         labelWidth={labelWidth}
         onClick={() => clearError(field)}
         inputRef={register({
-          validate: value => schemaValidate(value, field, schema)
+          validate: value => schemaValidate(value, field, schema),
         })}
         {...rest}
       >

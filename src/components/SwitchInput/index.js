@@ -1,20 +1,18 @@
-import React from "react";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Switch from "@material-ui/core/Switch";
+import React from 'react';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 
-import schemaValidate from "../../services/schemaValidate";
+import schemaValidate from '../../services/schemaValidate';
 
 export default function SwitchLabels({
-  errors,
-  register,
-  clearError,
+  props,
   field,
   label,
-  schema,
   options,
   ...rest
 }) {
+  const { register, schema } = props;
   return (
     <FormGroup row>
       <FormControlLabel
@@ -23,11 +21,12 @@ export default function SwitchLabels({
             name={field}
             color="primary"
             inputRef={register({
-              validate: value => schemaValidate(value, field, schema)
+              validate: value => schemaValidate(value, field, schema),
             })}
+            {...rest}
           />
         }
-        label="Primary"
+        label={label}
       />
     </FormGroup>
   );
