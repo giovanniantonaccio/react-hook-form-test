@@ -4,12 +4,7 @@ import MuiButton from "@material-ui/core/Button";
 
 export default function Button({ handleSubmit, label, ...rest }) {
   return (
-    <MuiButton
-      onClick={handleSubmit}
-      variant="contained"
-      style={{ marginTop: "20px" }}
-      {...rest}
-    >
+    <MuiButton onClick={handleSubmit} variant="contained" {...rest}>
       {label}
     </MuiButton>
   );
