@@ -1,23 +1,22 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import schemaValidate from "../../services/schemaValidate";
-import DateFnsUtils from "@date-io/date-fns";
-import { format } from "date-fns";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import DateFnsUtils from '@date-io/date-fns';
+import { format } from 'date-fns';
 import {
   KeyboardDatePicker,
-  MuiPickersUtilsProvider
-} from "@material-ui/pickers";
+  MuiPickersUtilsProvider,
+} from '@material-ui/pickers';
+import schemaValidate from '../../services/schemaValidate';
 
 export default function DatePicker({
-  props,
+  properties,
   field,
   label,
   defaultValue,
   params,
   ...rest
 }) {
-  console.log(defaultValue);
-  const { register, errors, clearError, schema } = props;
+  const { register, errors, clearError, schema } = properties;
   const [selectedDate, handleDateChange] = useState(defaultValue);
 
   return (
@@ -34,10 +33,13 @@ export default function DatePicker({
         inputVariant="outlined"
         format={params.format}
         value={selectedDate}
-        onChange={date => handleDateChange(date)}
-        onBlur={() => clearError(field)}
+        onChange={date => {
+          handleDateChange(date);
+        }}
+        onFocus={() => clearError(field)}
+        onOpen={() => clearError(field)}
         inputRef={register({
-          validate: value => schemaValidate(value, field, schema, params)
+          validate: value => schemaValidate(value, field, schema, params),
         })}
         {...rest}
       />
@@ -46,19 +48,19 @@ export default function DatePicker({
 }
 
 DatePicker.propTypes = {
-  props: PropTypes.shape({
-    register: PropTypes.func.isRequired,
-    errors: PropTypes.object.isRequired,
-    clearError: PropTypes.func.isRequired,
-    schema: PropTypes.object.isRequired
-  }),
+  properties: PropTypes.shape({
+    register: PropTypes.func,
+    errors: PropTypes.object,
+    clearError: PropTypes.func,
+    schema: PropTypes.object,
+  }).isRequired,
   field: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   defaultValue: PropTypes.string,
-  params: PropTypes.object
+  params: PropTypes.shape(),
 };
 
 DatePicker.defaultProps = {
   defaultValue: format(new Date(), "yyyy-MM-dd'T'HH:mm:ssxxx"),
-  params: null
+  params: null,
 };

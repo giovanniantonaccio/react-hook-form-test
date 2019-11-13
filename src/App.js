@@ -1,6 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import SignupForm from "./pages/SignupForm";
+import './config/ReactotronConfig';
+
+import SignupForm from './pages/SignupForm';
 
 function App() {
   return <SignupForm />;

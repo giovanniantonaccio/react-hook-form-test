@@ -1,90 +1,94 @@
-import React from "react";
-import useForm from "react-hook-form";
+import React from 'react';
+import useForm from 'react-hook-form';
 
-import schema from "../../schemas/SignupFormSchema";
+import Grid from '@material-ui/core/Grid';
+import schema from '../../schemas/SignupFormSchema';
 
-import Grid from "@material-ui/core/Grid";
-
-import TextInput from "../../components/TextInput";
-import SelectInput from "../../components/SelectInput";
-import SwitchInput from "../../components/SwitchInput";
-import DatePicker from "../../components/DatePicker";
-import Button from "../../components/Button";
+import TextInput from '../../components/TextInput';
+import SelectInput from '../../components/SelectInput';
+import SwitchInput from '../../components/SwitchInput';
+import DatePicker from '../../components/DatePicker';
+import Button from '../../components/Button';
 
 const currencies = [
   {
-    value: "USD",
-    label: "$"
+    value: 'USD',
+    label: '$',
   },
   {
-    value: "EUR",
-    label: "€"
+    value: 'EUR',
+    label: '€',
   },
   {
-    value: "BTC",
-    label: "฿"
+    value: 'BTC',
+    label: '฿',
   },
   {
-    value: "JPY",
-    label: "¥"
-  }
+    value: 'JPY',
+    label: '¥',
+  },
 ];
 
 export default function SignupForm() {
   const { register, errors, handleSubmit, clearError } = useForm({
-    mode: "onBlur"
+    mode: 'onBlur',
   });
 
-  const props = {
+  const properties = {
     register,
     errors,
     clearError,
-    schema
+    schema,
   };
 
   const onSubmit = (data, e) => {
     e.preventDefault();
-    console.log(data);
+    console.tron.log(data);
   };
 
   return (
     <form>
       <Grid container direction="column">
-        <TextInput props={props} field="email" label="Email" />
-        <TextInput props={props} field="name" label="Name" />
-        <TextInput props={props} field="amount" label="Amount" type="number" />
+        <TextInput properties={properties} field="email" label="Email" />
+        <TextInput properties={properties} field="name" label="Name" />
+        <TextInput
+          properties={properties}
+          field="amount"
+          label="Amount"
+          type="number"
+        />
         <SelectInput
-          props={props}
+          properties={properties}
           field="currency"
           label="Currency"
           options={currencies}
         />
-        <SwitchInput props={props} field="toggle" label="Toggle" />
+        <SwitchInput properties={properties} field="toggle" label="Toggle" />
         <SwitchInput
-          props={props}
+          properties={properties}
           field="toggleEdit"
           label="Toggle Edit"
-          defaultValue={true}
+          defaultValue
         />
         <DatePicker
-          props={props}
+          properties={properties}
           field="calendar"
           label="Calendar"
-          // defaultValue="2019-05-09T00:00:00-04:00"
+          defaultValue="2019-05-09T00:00:00-04:00"
           params={{
-            format: "dd/MM/yyyy",
-            minDate: "2019-07-10T00:00:00-04:00",
-            maxDate: "2019-12-10T00:00:00-04:00"
+            format: 'dd/MM/yyyy',
+            minDate: '2019-07-10T00:00:00-04:00',
+            maxDate: '2019-12-10T00:00:00-04:00',
           }}
         />
         <DatePicker
-          props={props}
+          properties={properties}
           field="monthCalendar"
           label="Month Calendar"
           params={{
-            format: "MM/yyyy"
+            format: 'MM/yyyy',
           }}
-          views={["month", "year"]}
+          views={['month', 'year']}
         />
         <Button
           handleSubmit={handleSubmit(onSubmit)}

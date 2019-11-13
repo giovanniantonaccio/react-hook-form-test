@@ -1,9 +1,11 @@
 const validate = async (value, key, schema, params) => {
-  return await schema.yupValidations[key]
+  return schema.yupValidations[key]
     .validate(value)
-    .then(value => {
+    .then(v => {
       if (schema.customValidations[key])
-        return schema.customValidations[key](value, params);
+        return schema.customValidations[key](v, params);
+
+      return null;
     })
     .catch(err => err.message);
 };

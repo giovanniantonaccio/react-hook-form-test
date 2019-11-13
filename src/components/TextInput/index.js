@@ -1,18 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types";
-import TextField from "@material-ui/core/TextField";
-import schemaValidate from "../../services/schemaValidate";
+import React from 'react';
+import PropTypes from 'prop-types';
+import TextField from '@material-ui/core/TextField';
+import schemaValidate from '../../services/schemaValidate';
 
 export default function TextInput({
-  props,
+  properties,
   field,
   label,
   defaultValue,
   params,
   ...rest
 }) {
-  const { register, errors, clearError, schema } = props;
-
+  const { register, errors, clearError, schema } = properties;
   return (
     <TextField
       error={errors[field] && true}
@@ -23,9 +22,9 @@ export default function TextInput({
       defaultValue={defaultValue}
       margin="normal"
       variant="outlined"
-      onBlur={() => clearError(field)}
+      onFocus={() => clearError(field)}
       inputRef={register({
-        validate: value => schemaValidate(value, field, schema, params)
+        validate: value => schemaValidate(value, field, schema, params),
       })}
       {...rest}
     />
@@ -33,21 +32,24 @@ export default function TextInput({
 }
 
 TextInput.propTypes = {
-  props: PropTypes.shape({
-    register: PropTypes.func.isRequired,
-    errors: PropTypes.object.isRequired,
-    clearError: PropTypes.func.isRequired,
-    schema: PropTypes.object.isRequired
-  }),
+  properties: PropTypes.shape({
+    register: PropTypes.func,
+    errors: PropTypes.object,
+    clearError: PropTypes.func,
+    schema: PropTypes.shape({
+      yupValidations: PropTypes.object,
+      customValidations: PropTypes.object,
+    }),
+  }).isRequired,
   field: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   type: PropTypes.string,
   defaultValue: PropTypes.string,
-  params: PropTypes.object
+  params: PropTypes.shape(),
 };
 
 TextInput.defaultProps = {
-  type: "text",
-  defaultValue: "",
-  params: null
+  type: 'text',
+  defaultValue: '',
+  params: null,
 };
